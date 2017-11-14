@@ -217,8 +217,6 @@ db.lock
 # Angular
 #####
 
-CTFront/.idea/workspace.xml
-.idea/workspace.xml
 **/build/
 **/benchpress-build/
 **/.DS_Store
@@ -226,7 +224,7 @@ CTFront/.idea/workspace.xml
 **/test.disable
 **/regression/temp*.html
 **/performance/temp*.html
-**/.idea/workspace.xml
+*/.idea/workspace.xml
 **/*~
 **/*.swp
 **/angular.js.tmproj
