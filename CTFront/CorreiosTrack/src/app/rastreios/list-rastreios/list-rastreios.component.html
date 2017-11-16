@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <h3>Lista de Rastreamentos</h3>
+  </div>
+  <div class="row">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Código</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rastreio of rastreiosData">
+          <td>{{rastreio.Nome}}</td>
+          <td>{{rastreio.Codigo}}</td>
+          <td>{{rastreio.Status}}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+  <div class="row">
+    <button type="button" class="btn btn-lg btn-primary">Adicionar</button>
+  </div>
+
+
+
+</div>
