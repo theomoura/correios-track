@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <h3>Inserir Rastreamento</h3>
+  </div>
+  <div class="container">
+    <form [formGroup]="trackForm" (ngSubmit)="submitForm(trackForm.value)">
+      <div class="form-container">
+
+        <div class="row">
+          <label class="control-label">Nome</label>
+          <input type="text" formControlName="name">
+        </div>
+
+        <div class="row">
+          <label class="control-label">Código</label>
+          <input type="text" formControlName="code">
+        </div>
+
+        <div class="row">
+          <button type="submit" [disabled]="!trackForm.valid" class="btn btn-lg btn-primary">Adicionar</button>
+          <!--<input type="submit" class="btn-primary" value="Submit" [disabled]="!trackForm.valid">-->
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {RastreioService} from "../../services/rastreio-service.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list-rastreios',
@@ -16,7 +17,7 @@ export class ListRastreiosComponent implements OnInit {
     Status:""
   }];
 
-  constructor(private rastreioService: RastreioService) { }
+  constructor(private rastreioService: RastreioService, private router: Router) { }
 
   ngOnInit() {
     this.retrieveTracksData();
@@ -26,6 +27,10 @@ export class ListRastreiosComponent implements OnInit {
     this.rastreioService.getAllTracks().subscribe((res) => {
       this.rastreiosData = res;
     });
+  }
+
+  addButton() {
+    this.router.navigateByUrl("/rastreio/insert");
   }
 
 }

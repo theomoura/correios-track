@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DiscoveryClientResultsFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Results>
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.SchemaReference" url="http://webservice.correios.com.br/service/rastro/Rastro_schema1.xsd" filename="Rastro_schema1.xsd" />
+    <DiscoveryClientResult referenceType="System.Web.Services.Discovery.ContractReference" url="http://webservice.correios.com.br/service/rastro/Rastro.wsdl" filename="rastro.wsdl" />
+  </Results>
+</DiscoveryClientResultsFile>
