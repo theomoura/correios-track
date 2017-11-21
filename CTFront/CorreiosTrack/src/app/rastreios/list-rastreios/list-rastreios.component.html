@@ -9,6 +9,7 @@
           <th>Nome</th>
           <th>Código</th>
           <th>Status</th>
+          <th>Operações</th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +17,10 @@
           <td>{{rastreio.Nome}}</td>
           <td>{{rastreio.Codigo}}</td>
           <td>{{rastreio.Status}}</td>
+          <td>
+            <button class="btn btn-outline-danger" (click)="myModal.open(); setSelected(rastreio)">Deletar</button>
+            <button class="btn btn-outline-info" (click)="editTrack(rastreio)">Editar</button>
+          </td>
         </tr>
       </tbody>
 
@@ -24,7 +29,17 @@
   <div class="row">
     <button type="button" (click)="addButton()" class="btn btn-lg btn-primary">Adicionar</button>
   </div>
-
-
-
 </div>
+
+<modal #myModal [hideCloseButton]="true">
+  <modal-header>
+    <h1>Excluir Rastreamento</h1>
+  </modal-header>
+  <modal-content>
+    Deseja realmente excluir o rastreamento?
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="deleteTrack(selectedRastreio.Id); myModal.close()">Sim</button>
+    <button class="btn btn-danger" (click)="myModal.close()">Não</button>
+  </modal-footer>
+</modal>

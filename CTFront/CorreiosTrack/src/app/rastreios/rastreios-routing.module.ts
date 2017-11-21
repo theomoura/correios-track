@@ -6,7 +6,8 @@ import {InsertRastreiosComponent} from "./insert-rastreios/insert-rastreios.comp
 
 const rastreioRoutes: Routes = [
   { path: 'rastreio',  component: ListRastreiosComponent },
-  { path: 'rastreio/insert',  component: InsertRastreiosComponent }
+  { path: 'rastreio/insert',  component: InsertRastreiosComponent },
+  { path: 'rastreio/edit/:id',  component: InsertRastreiosComponent }
 ];
 
 @NgModule({

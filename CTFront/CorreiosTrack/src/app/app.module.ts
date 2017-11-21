@@ -3,7 +3,6 @@ import { RastreiosModule } from './rastreios/rastreios.module';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {Configuration} from "./services/app.constants";
@@ -17,7 +16,7 @@ import {Configuration} from "./services/app.constants";
     BrowserModule,
     RastreiosModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
   ],
   providers: [Configuration],
   bootstrap: [AppComponent]

@@ -4,6 +4,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {ModalModule} from "ng2-modal";
+
 import { ListRastreiosComponent } from './list-rastreios/list-rastreios.component';
 import {RastreiosRoutingModule} from "./rastreios-routing.module";
 import {AppComponent} from "../app.component";
@@ -21,6 +23,7 @@ import { InsertRastreiosComponent } from './insert-rastreios/insert-rastreios.co
     RastreiosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule,
     HttpModule,
     NgbModule
   ],

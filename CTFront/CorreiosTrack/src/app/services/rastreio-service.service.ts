@@ -20,6 +20,22 @@ export class RastreioService {
     return this.http.post(this.url, body, {headers:this.getHeaders()});
   }
 
+  deleteTrack(id) {
+    const deleteUrl = this.url + "/" + id;
+    return this.http.delete(deleteUrl, {headers:this.getHeaders()});
+  }
+
+  getTrack(id) {
+    const getUrl = this.url + "/" + id;
+    return this.http.get(getUrl, {headers:this.getHeaders()});
+  }
+
+  updateTrack(body) {
+    const putUrl = this.url + "/" + body.Id;
+    return this.http.put(putUrl, body, {headers:this.getHeaders()});
+
+  }
+
   private getHeaders(){
     let headers = new Headers();
     headers.append('Accept', 'application/json');

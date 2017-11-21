@@ -59,6 +59,9 @@ namespace CorreiosTrack.Controllers
                 return BadRequest();
             }
 
+            string trackStatus = ConsultTrackStatus(rastreio.Codigo);
+            rastreio.Status = trackStatus;
+
             db.Entry(rastreio).State = EntityState.Modified;
 
             try
@@ -91,6 +94,7 @@ namespace CorreiosTrack.Controllers
 
             string trackStatus = ConsultTrackStatus(rastreio.Codigo);
             rastreio.Status = trackStatus;
+
             db.Rastreios.Add(rastreio);
             db.SaveChanges();
 
