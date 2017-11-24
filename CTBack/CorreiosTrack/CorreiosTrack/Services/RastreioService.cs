@@ -15,18 +15,27 @@ namespace CorreiosTrack.Services
     {
         private CorreiosTrackContext db = new CorreiosTrackContext();
 
-        public IQueryable<Rastreio> GetRastreios()
+        public IQueryable<Rastreio> ConsultAllRastreios()
         {
-            return db.Rastreios;
+            IQueryable<Rastreio> rList = db.Rastreios;
+            foreach(Rastreio rastreio in rList)
+            {
+                string trackStatus = ConsultTrackStatus(rastreio.Codigo);
+                rastreio.Status = trackStatus;
+            }
+                return rList;
         }
 
-        public Rastreio GetRastreio(long id)
+        public Rastreio ConsultRastreio(long id)
         {
+            
             return db.Rastreios.Find(id);
         }
 
-        public bool PutRastreio(long id, Rastreio rastreio)
+        public bool EditRastreio(long id, Rastreio rastreio)
         {
+            string trackStatus = ConsultTrackStatus(rastreio.Codigo);
+            rastreio.Status = trackStatus;
             db.Entry(rastreio).State = EntityState.Modified;
 
             try
@@ -47,13 +56,15 @@ namespace CorreiosTrack.Services
             return true;
         }
 
-        public void PostRastreio(Rastreio rastreio)
+        public void CreateRastreio(Rastreio rastreio)
         {
+            string trackStatus = ConsultTrackStatus(rastreio.Codigo);
+            rastreio.Status = trackStatus;
             db.Rastreios.Add(rastreio);
             db.SaveChanges();
         }
 
-        public Rastreio DeleteRastreio(long id)
+        public Rastreio RemoveRastreio(long id)
         {
             Rastreio rastreio = db.Rastreios.Find(id);
             if (rastreio == null)
@@ -67,7 +78,7 @@ namespace CorreiosTrack.Services
             return rastreio;
         }
 
-        public List<Rastreio> GetSomething(long id)
+        public List<Rastreio> ConsultByStatusTest(long id)
         {
             //Example using LINQ for test purposes
             using (var context = new CorreiosTrackContext())
@@ -104,14 +115,20 @@ namespace CorreiosTrack.Services
         private string parseXML(string xml)
         {
             string result = "";
-            int initIndexDesc = xml.IndexOf("<descricao>") + "<descricao>".Length;
-            int finalLenghtDesc = xml.IndexOf("</descricao>") - initIndexDesc;
-            result += xml.Substring(initIndexDesc, finalLenghtDesc);
-            if (xml.Contains("<destino>"))
+            if (!xml.Contains("<erro>"))
             {
-                int initIndexLocal = xml.IndexOf("<local>", xml.IndexOf("<local>") + 1) + "<local>".Length;
-                int finalLenghtLocal = xml.IndexOf("</local>", xml.IndexOf("</local>") + 1) - initIndexLocal;
-                result += "para " + xml.Substring(initIndexLocal, finalLenghtLocal);
+                int initIndexDesc = xml.IndexOf("<descricao>") + "<descricao>".Length;
+                int finalLenghtDesc = xml.IndexOf("</descricao>") - initIndexDesc;
+                result += xml.Substring(initIndexDesc, finalLenghtDesc);
+                if (xml.Contains("<destino>"))
+                {
+                    int initIndexLocal = xml.IndexOf("<local>", xml.IndexOf("<local>") + 1) + "<local>".Length;
+                    int finalLenghtLocal = xml.IndexOf("</local>", xml.IndexOf("</local>") + 1) - initIndexLocal;
+                    result += "para " + xml.Substring(initIndexLocal, finalLenghtLocal);
+                }
+            } else
+            {
+                result = "Objeto não encontrado";
             }
             return result;
         }

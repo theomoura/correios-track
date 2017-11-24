@@ -1,7 +1,4 @@
-﻿using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -10,9 +7,6 @@ using CorreiosTrack.Models;
 namespace CorreiosTrack.Controllers
 {
     using CorreiosTrack.Services;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml;
 
     [RoutePrefix("api/Rastreios")]
     public class RastreiosController : ApiController
@@ -30,7 +24,7 @@ namespace CorreiosTrack.Controllers
         // GET: api/Rastreios
         public IQueryable<Rastreio> GetRastreios()
         {
-            return _service.GetRastreios();
+            return _service.ConsultAllRastreios();
         }
 
         //Example of custom routing for test purposes
@@ -38,14 +32,14 @@ namespace CorreiosTrack.Controllers
         [HttpGet]
         public IHttpActionResult GetSomething(long id)
         {
-            return Ok(_service.GetSomething(2));
+            return Ok(_service.ConsultByStatusTest(2));
         }
 
         // GET: api/Rastreios/5
         [ResponseType(typeof(Rastreio))]
         public IHttpActionResult GetRastreio(long id)
         {
-            Rastreio rastreio = _service.GetRastreio(id);
+            Rastreio rastreio = _service.ConsultRastreio(id);
             if (rastreio == null)
             {
                 return NotFound();
@@ -62,16 +56,12 @@ namespace CorreiosTrack.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             if (id != rastreio.Id)
             {
                 return BadRequest();
             }
 
-            string trackStatus = _service.ConsultTrackStatus(rastreio.Codigo);
-            rastreio.Status = trackStatus;
-
-            bool result = _service.PutRastreio(id, rastreio);
+            bool result = _service.EditRastreio(id, rastreio);
             if (!result)
             {
                 return NotFound();
@@ -87,11 +77,7 @@ namespace CorreiosTrack.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            string trackStatus = _service.ConsultTrackStatus(rastreio.Codigo);
-            rastreio.Status = trackStatus;
-
-            _service.PostRastreio(rastreio);
+            _service.CreateRastreio(rastreio);
 
             return CreatedAtRoute("DefaultApi", new { id = rastreio.Id }, rastreio);
         }
@@ -100,7 +86,7 @@ namespace CorreiosTrack.Controllers
         [ResponseType(typeof(Rastreio))]
         public IHttpActionResult DeleteRastreio(long id)
         {
-            Rastreio rastreio = _service.DeleteRastreio(id);
+            Rastreio rastreio = _service.RemoveRastreio(id);
             if (rastreio == null)
             {
                 return NotFound();

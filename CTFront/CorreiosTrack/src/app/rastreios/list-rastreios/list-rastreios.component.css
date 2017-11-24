@@ -13,3 +13,10 @@
 .modal-backdrop.fade {
   opacity: 0.5 !important;
 }
+
+.red-color {
+  padding: 50px;
+  color: red;
+  text-align: center;
+  width:100%;
+}

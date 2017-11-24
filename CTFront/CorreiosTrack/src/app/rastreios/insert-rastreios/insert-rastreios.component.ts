@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewContainerRef, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RastreioService} from "../../services/rastreio-service.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {isNullOrUndefined} from "util";
 
 @Component({
@@ -20,7 +21,10 @@ export class InsertRastreiosComponent implements OnInit {
     'Codigo':''
   }
 
-  constructor(private fb: FormBuilder, private trackService: RastreioService, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private trackService: RastreioService,
+              private router: Router, private route: ActivatedRoute,private toastManager: ToastsManager,
+              vcr: ViewContainerRef) {
+    this.toastManager.setRootViewContainerRef(vcr);
     this.trackForm = fb.group({
       'name':[null, Validators.compose([Validators.maxLength(50), Validators.required])],
       'code':[null, Validators.compose([Validators.pattern('^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$'), Validators.required])]
@@ -34,6 +38,7 @@ export class InsertRastreiosComponent implements OnInit {
         this.getTrackForEdition(id);
       }
     });
+    this.toastManager.success("opa","opa")
   }
 
   submitForm(form) {
@@ -64,8 +69,12 @@ export class InsertRastreiosComponent implements OnInit {
     this.trackService.updateTrack(this.dataForm).subscribe((res) => {
       if (res.ok) {
         this.router.navigateByUrl("/rastreio");
+        this.toastManager.success("Rastreamento alterado com sucesso",'Success');
+      } else {
+        this.toastManager.error("Erro ao alterar rastreamento", "Erro");
       }
     }, (err) => {
+      this.toastManager.error("Erro ao alterar rastreamento", "Erro");
       console.log(err);
     })
   }
@@ -74,8 +83,12 @@ export class InsertRastreiosComponent implements OnInit {
     this.trackService.insertTrack(this.dataForm).subscribe( (res) => {
       if (res.ok) {
         this.router.navigateByUrl("/rastreio");
+        this.toastManager.success("Rastreamento inserido com sucesso", 'Success');
+      } else {
+        this.toastManager.error("Erro ao inserir rastreamento", "Erro");
       }
     }, (err) => {
+      this.toastManager.error("Erro ao inserir rastreamento", "Erro");
       console.log(err);
     });
   }
