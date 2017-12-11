@@ -11,7 +11,7 @@ using System.IO;
 
 namespace CorreiosTrack.Services
 {
-    public class RastreioService
+    public class RastreioService : IRastreioService
     {
         private CorreiosTrackContext db = new CorreiosTrackContext();
 

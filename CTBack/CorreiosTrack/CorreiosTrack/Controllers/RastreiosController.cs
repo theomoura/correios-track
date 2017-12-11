@@ -14,11 +14,13 @@ namespace CorreiosTrack.Controllers
 
         private CorreiosTrackContext db = new CorreiosTrackContext();
 
-        private readonly RastreioService _service;
+        private readonly IRastreioService _service;
 
-        public RastreiosController()
+        
+
+        public RastreiosController(IRastreioService service)
         {
-            _service = new RastreioService();
+            this._service = service;
         }
 
         // GET: api/Rastreios
